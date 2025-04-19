@@ -25,6 +25,8 @@ namespace WhereIsDydelfGameProject
         private Label TimeLabel;
         //Creates a HashSet, holding the position of dydelfs around the board, can only hold one dydelf on one position
         private HashSet<Point> Dydelfs = new HashSet<Point>();
+        //Creates a HashSet, holdin the position of Raccooo around the board, as before, can only hold one raccoon on one position
+        private HashSet<Point> Rac = new HashSet<Point>();
         //Creates a single point of board ( or no point at all when Croc=0 in Settings ) that stores a Crocodile, we dont need HashSet here, since its just one Croc or Zero
         private Point? Crocs = null;
         //Boolean function that checks if the crocodile is revealed or nah
@@ -169,6 +171,15 @@ namespace WhereIsDydelfGameProject
                 Dydelfs.Add(p);
             }
 
+            do
+            {
+                Point p = new Point(rand.Next(Settings.Width), rand.Next(Settings.Height));
+                if(!Dydelfs.Contains(p) && (!Crocs.HasValue || Crocs.Value != p))
+                {
+                    Rac.Add(p);
+                }
+            } while (Rac.Count < Settings.Raccoon);
+
             if(Settings.Crocs > 0)
             {
                 Point Croc;
@@ -209,6 +220,19 @@ namespace WhereIsDydelfGameProject
                     EndGame(true, "All Dydelfs Found!");
                 }
             }
+            else if (Rac.Contains(ClickPoint)) 
+            {
+
+                ClickButton.BackColor = Color.Green;
+                ClickButton.Text = "Raccoon!";
+                ClickButton.Enabled = false;
+
+                System.Windows.Forms.Timer RacTimer = new System.Windows.Forms.Timer(); 
+                RacTimer.Interval = 2000;
+                RacTimer.Tag = ClickPoint;
+                RacTimer.Tick += RacTimer_Tick;
+                RacTimer.Start();
+            }
             else if(Crocs.HasValue && Crocs.Value == ClickPoint && !IsRevealed) 
             {
             
@@ -218,7 +242,7 @@ namespace WhereIsDydelfGameProject
                 CrocButton = ClickButton;
                 CrocButton.Enabled = true;
                 CrocTimer = new System.Windows.Forms.Timer();
-                CrocTimer.Interval = 3000;
+                CrocTimer.Interval = 2000;
                 CrocTimer.Tick += CrocTimer_Tick;
                 CrocTimer.Start();
             
@@ -237,6 +261,49 @@ namespace WhereIsDydelfGameProject
             if (IsRevealed)
             {
                 EndGame(false, "You Failed to unclick in time!");
+            }
+        }
+        //RAC_TIMER_METHOD
+        private void RacTimer_Tick(object sender,EventArgs e)
+        {
+            System.Windows.Forms.Timer Timer = sender as System.Windows.Forms.Timer;
+
+            if(Timer != null)
+            {
+                Timer.Stop();
+                Point Center = (Point)Timer.Tag;
+                Timer.Dispose();
+
+                HideMechanism(Center);
+            }
+        }
+        //HIDE_MECHANISM_METHOD
+        private void HideMechanism(Point center)
+        {
+            for(int x = -1; x <= 1; x++)
+            {
+                for(int y = -1; y <= 1; y++)
+                {
+                    int a = center.X + x;
+                    int b = center.Y + y;
+
+                    if(a >= 0 && b >= 0 && a < Settings.Width && b < Settings.Height)
+                    {
+                        Button btn = Button[a, b];
+                        if (!btn.Enabled)
+                        {
+                            btn.Enabled = true;
+                            btn.Text = "";
+                            btn.BackColor = Color.Gray;
+
+                            Point p = new Point(a, b);
+                            if (Dydelfs.Contains(p))
+                            {
+                                DydelfFoundCounter--;
+                            }
+                        }
+                    }
+                }
             }
         }
 

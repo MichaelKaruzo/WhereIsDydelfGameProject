@@ -39,11 +39,14 @@
             label4 = new Label();
             label5 = new Label();
             label6 = new Label();
+            numericUpDown6 = new NumericUpDown();
+            label7 = new Label();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown6).BeginInit();
             SuspendLayout();
             // 
             // numericUpDown1
@@ -80,7 +83,7 @@
             // 
             // numericUpDown5
             // 
-            numericUpDown5.Location = new Point(175, 151);
+            numericUpDown5.Location = new Point(175, 212);
             numericUpDown5.Name = "numericUpDown5";
             numericUpDown5.Size = new Size(96, 27);
             numericUpDown5.TabIndex = 4;
@@ -116,7 +119,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(86, 153);
+            label4.Location = new Point(86, 214);
             label4.Name = "label4";
             label4.Size = new Size(42, 20);
             label4.TabIndex = 8;
@@ -140,11 +143,31 @@
             label6.TabIndex = 10;
             label6.Text = "DydelfNum";
             // 
+            // numericUpDown6
+            // 
+            numericUpDown6.Location = new Point(175, 152);
+            numericUpDown6.Name = "numericUpDown6";
+            numericUpDown6.Size = new Size(96, 27);
+            numericUpDown6.TabIndex = 11;
+            numericUpDown6.ValueChanged += numericUpDown6_ValueChanged;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(189, 129);
+            label7.Name = "label7";
+            label7.Size = new Size(65, 20);
+            label7.TabIndex = 12;
+            label7.Text = "RacNum";
+            label7.Click += label7_Click;
+            // 
             // SettingsControlPanel
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(292, 202);
+            ClientSize = new Size(292, 278);
+            Controls.Add(label7);
+            Controls.Add(numericUpDown6);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
@@ -163,6 +186,7 @@
             ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown4).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDown5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDown6).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -180,5 +204,7 @@
         private Label label4;
         private Label label5;
         private Label label6;
+        private NumericUpDown numericUpDown6;
+        private Label label7;
     }
 }

@@ -11,7 +11,8 @@ namespace WhereIsDydelfGameProject
     {
         public int Width { get; set; } = 5;
         public int Height { get; set; } = 5;
-        public int Dydelfs { get; set; } = 3;
+        public int Dydelfs { get; set; } = 1;
+        public int Raccoon { get; set; } = 3;
         public int Crocs { get; set; } = 1;
         public int Time { get; set; } = 30;
     }
